@@ -37,11 +37,8 @@ EOF
 banner
 
 # ══════════════════════════════════════════════════════════════
-# STEP 1 — Storage & Package Update
+# STEP 1 — Package Update
 # ══════════════════════════════════════════════════════════════
-info "Setting up Termux storage access..."
-termux-setup-storage
-success "Storage setup done."
 
 info "Updating package lists and upgrading installed packages..."
 sudo pacman -Syu
