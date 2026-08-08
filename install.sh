@@ -44,23 +44,11 @@ termux-setup-storage
 success "Storage setup done."
 
 info "Updating package lists and upgrading installed packages..."
-pkg update -y && pkg upgrade -y
+sudo pacman -Syu
 success "System updated."
 
 # ══════════════════════════════════════════════════════════════
-# STEP 2 — Add Repos (tur-repo, termux-void)
-#           Must be done before installing packages that live in them
-# ══════════════════════════════════════════════════════════════
-info "Installing extra repositories (tur-repo, termux-void)..."
-pkg install -y tur-repo
-
-curl -sL https://termuxvoid.github.io/repo/install.sh | bash -s -- -s
-
-pkg update -y
-success "Repos added and index refreshed."
-
-# ══════════════════════════════════════════════════════════════
-# STEP 3 — Install All Packages
+# STEP 2 — Install All Packages
 # ══════════════════════════════════════════════════════════════
 info "Installing all required packages..."
 
@@ -94,9 +82,9 @@ PACKAGES=(
   stow
 )
 
-for pkg in "${PACKAGES[@]}"; do
+for yay in "${PACKAGES[@]}"; do
   info "  Installing: ${BOLD}${pkg}${RESET}"
-  pkg install -y "$pkg" || warn "  '$pkg' failed — skipping (may not exist in current repos)."
+  yay -G -y "$pkg" || warn "  '$pkg' failed — skipping (may not exist in current repos)."
 done
 
 success "All packages installed."
